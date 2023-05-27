@@ -8,12 +8,13 @@ import rootReducer from "./reducers";
 const initialState = {
   taskCards: {
       data: [],
-      error: [],
+      error: {},
       loading: false,
   },
   user: {
       hasAccess: false,
-      token: {}
+      token: {},
+      error: {}
   }
 };
 

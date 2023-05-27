@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Modal from "../components/Modal";
+
 import { useSelector, useDispatch } from "react-redux";
 import customAxios from "../config/customAxios";
 import {
@@ -9,11 +9,15 @@ import {
 } from "../store/actions";
 import ListComponent from "../components/ListComponent";
 import { MODALTYPE, STATUSTYPE } from "../config/config";
+import SearchComponent from "../components/SearchComponent";
+import AddUpdateComponent from "../components/AddUpdateComponent";
 
 const CalendarLanding = () => {
   const [openAddTask, setOpenAddTask] = useState(false);
   const [modalType, setModalType] = useState();
   const [selectedTask, setSelectedTask] = useState(null);
+  const [searchTask, setSearchTask] = useState("");
+  const [taskList, setTaskList] = useState([]);
   const dispatch = useDispatch();
 
   const appointmentList = useSelector((state) => state.taskCards.data);
@@ -47,6 +51,11 @@ const CalendarLanding = () => {
   useEffect(() => {
     getAppointmentList("/appointment");
   }, []);
+
+  useEffect(() => {
+    console.log(appointmentList);
+    setTaskList(appointmentList);
+  }, [appointmentList]);
 
   const handleUpdateButton = (e, id) => {
     if (e.target.name === "deleteButton") {
@@ -103,13 +112,26 @@ const CalendarLanding = () => {
     getAppointmentList("/appointment");
   };
 
+  const handleSearchChange = (e) => {
+    setSearchTask(e.target.value);
+  };
+
+  const filteredTaskList = taskList.filter((task) => {
+    return task.name.toLowerCase().includes(searchTask.toLowerCase());
+  });
+
   return (
     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
       <ul role="list" className="divide-y divide-gray-100 rounded-sm">
-        {appointmentList.map((item) => (
+        <SearchComponent
+          onHandleChange={handleSearchChange}
+          value={searchTask}
+        />
+        {filteredTaskList.map((item, i) => (
           <ListComponent
+            key={i}
+            id={item.id}
             name={item.name}
-            key={item.id}
             status={item.status}
             date={item.date}
             onClick={(e) => handleUpdateButton(e, item.id)}
@@ -129,7 +151,7 @@ const CalendarLanding = () => {
       </div>
       {openAddTask &&
         (selectedTask !== null || modalType === MODALTYPE.ADD) && (
-          <Modal
+          <AddUpdateComponent
             handleCloseModal={handleCloseModal}
             type={modalType}
             data={modalType === MODALTYPE.UPDATE ? selectedTask : {}}

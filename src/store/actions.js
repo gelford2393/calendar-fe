@@ -5,7 +5,7 @@ import {
     DELETE_APPOINTMENT,
     UPDATE_STATUS_APPOINMENT,
     SET_ACTIVE_SESSION,
-    GET_ERROR
+    GET_LOGIN_ERROR
 } from './types'
 
 export const getAppointment = (payload) => {
@@ -15,9 +15,9 @@ export const getAppointment = (payload) => {
     }
 }
 
-export const getError = (payload) => {
+export const getLoginError = (payload) => {
     return {
-        type: GET_ERROR,
+        type: GET_LOGIN_ERROR,
         payload: payload
     }
 }

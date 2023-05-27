@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import customAxios from "../config/customAxios";
-import { setActiveSession } from "../store/actions";
+import { getLoginError, setActiveSession } from "../store/actions";
+import ErrorComponent from "../components/ErrorComponent";
+
+import { isValidObj } from "../config/util";
 
 const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorPrompt, setErrorPrompt] = useState(false);
+  const user = useSelector((state) => state.user);
+
   const onEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -15,21 +21,27 @@ const Login = () => {
   };
   const onSubmitSignIn = async (e) => {
     e.preventDefault();
-    const response = await customAxios.post(
-      "/login",
-      {
-        email: email,
-        password: password,
-      },
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+
     try {
+      const response = await customAxios.post(
+        "/login",
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
       dispatch(setActiveSession(response.data));
     } catch (error) {
-      console.log(error);
+      dispatch(getLoginError(error.response));
+      setErrorPrompt(true);
     }
+  };
+
+  const handleCloseError = () => {
+    setErrorPrompt(false);
   };
   return (
     <>
@@ -85,6 +97,12 @@ const Login = () => {
             </button>
           </div>
         </form>
+        {isValidObj(user.error) && errorPrompt && (
+          <ErrorComponent
+            errorData={user.error}
+            handleCloseModal={() => handleCloseError()}
+          />
+        )}
       </div>
     </>
   );

@@ -5,18 +5,19 @@ import {
     DELETE_APPOINTMENT,
     UPDATE_STATUS_APPOINMENT,
     SET_ACTIVE_SESSION,
-    GET_ERROR
+    GET_LOGIN_ERROR
 } from './types'
 
 const initialState = {
     taskCards: {
         data: [],
-        error: [],
+        error: {},
         loading: false,
     },
     user: {
         hasAccess: false,
-        token: {}
+        token: {},
+        error: {}
     }
 };
 
@@ -31,15 +32,7 @@ const getAppointmentReducer = (state = initialState, action) => {
                     loading: false
                 }
             };
-        case GET_ERROR:
-            return {
-                ...state,
-                taskCards: {
-                    ...state.taskCards,
-                    error: action.payload,
-                    loading: false
-                }
-            }
+
         case DELETE_APPOINTMENT:
             return {
                 ...state,
@@ -66,7 +59,7 @@ const getAppointmentReducer = (state = initialState, action) => {
                 }
             }
         case EDIT_APPOINTMENT:
-            
+
             return {
                 ...state,
                 taskCards: {
@@ -83,6 +76,15 @@ const getAppointmentReducer = (state = initialState, action) => {
                     ...state.user,
                     hasAccess: true,
                     token: action.payload
+                }
+            }
+        case GET_LOGIN_ERROR:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    hasAccess: false,
+                    error: action.payload,
                 }
             }
         default:

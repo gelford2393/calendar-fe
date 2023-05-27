@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 
 const ListComponent = (props) => {
-  const { name, date, status, key, onClick, handleDeleteButton, toggleStatus } =
-    props;
+  const {
+    id,
+    name,
+    date,
+    status,
+    key,
+    onClick,
+    handleDeleteButton,
+    toggleStatus,
+  } = props;
   const [isHovered, setIsHovered] = useState(false);
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -11,15 +19,15 @@ const ListComponent = (props) => {
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
-  console.log(status)
-  const colorStatus = status.toUpperCase() === "PENDING" ? "orange" : "green";
+  const colorStatus =
+    status.toUpperCase() === "PENDING" ? "bg-orange-400" : "bg-green-300";
   return (
     <li
       key={key}
       className={`flex justify-between gap-x-6 py-5 px-5 focus-visible:outline hover:cursor-pointer ${
-        isHovered ? "bg-blue-100 text-white" : ""
+        isHovered ? "bg-pink-100" : ""
       }`}
-      onClick={(e) => onClick(e, key)}
+      onClick={(e) => onClick(id, key)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -34,7 +42,7 @@ const ListComponent = (props) => {
           <button
             type="button"
             name="toggleStatus"
-            className={`flex justify-center rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 text-${colorStatus} shadow-sm hover:bg-${colorStatus}-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2`}
+            className={`flex justify-center rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm ${colorStatus} hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2`}
             onClick={() => toggleStatus(key, status)}
           >
             {status.toUpperCase()}
