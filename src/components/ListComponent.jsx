@@ -27,16 +27,16 @@ const ListComponent = (props) => {
       className={`flex justify-between gap-x-6 py-5 px-5 focus-visible:outline hover:cursor-pointer ${
         isHovered ? "bg-pink-100" : ""
       }`}
-      onClick={(e) => onClick(id, key)}
+      onClick={(e) => onClick(e, id)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div className="flex gap-x-4">
         <div className="min-w-0 flex-auto">
-          <p className="text-sm font-semibold leading-8 text-gray-900">
+          <p className="text-md font-semibold leading-10 text-gray-900">
             {name}
           </p>
-          <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+          <p className="mt-1 mb-2  truncate text-sm leading-5 text-gray-500">
             {date}
           </p>
           <button
