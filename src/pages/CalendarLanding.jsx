@@ -166,6 +166,7 @@ const CalendarLanding = () => {
       {deleteModal && (
         <DeleteComponent
           onClick={() => handleDeleteButton(selectedDeleteTask)}
+          setDeleteModal={setDeleteModal}
         />
       )}
     </div>

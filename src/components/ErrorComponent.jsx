@@ -8,10 +8,10 @@ const ErrorComponent = ({ errorData, handleCloseModal }) => {
       <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
         <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
           <div className="sm:items-start sm:w-full">
-            <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+            <div className="bg-red-500 text-white font-bold rounded-t px-4 py-2">
               {statusText}
             </div>
-            <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+            <div className="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
               <p>{data}</p>
             </div>
           </div>
