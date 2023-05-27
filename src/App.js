@@ -1,25 +1,24 @@
-import logo from './logo.svg';
+
+import React, { useState } from 'react'
 import './App.css';
+import CalendarLanding from './pages/CalendarLanding';
+import Login from './pages/Login';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const userHasAccess = useSelector(state => state.user.hasAccess)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          CALENDAR APP
+        </h2>
+      </div>
+      {userHasAccess ? <CalendarLanding /> :
+        <Login />}
     </div>
-  );
+  )
 }
 
 export default App;
