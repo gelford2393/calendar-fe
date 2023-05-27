@@ -11,6 +11,7 @@ import ListComponent from "../components/ListComponent";
 import { MODALTYPE, STATUSTYPE } from "../config/config";
 import SearchComponent from "../components/SearchComponent";
 import AddUpdateComponent from "../components/AddUpdateComponent";
+import DeleteComponent from "../components/DeleteComponent";
 
 const CalendarLanding = () => {
   const [openAddTask, setOpenAddTask] = useState(false);
@@ -18,6 +19,8 @@ const CalendarLanding = () => {
   const [selectedTask, setSelectedTask] = useState(null);
   const [searchTask, setSearchTask] = useState("");
   const [taskList, setTaskList] = useState([]);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [selectedDeleteTask, setSelectedDeleteTask] = useState(null);
   const dispatch = useDispatch();
 
   const appointmentList = useSelector((state) => state.taskCards.data);
@@ -40,8 +43,8 @@ const CalendarLanding = () => {
   };
 
   const deleteAppointmentTask = async (path, id) => {
-    const response = await customAxios.delete(`${path}/${id}`);
     try {
+      const response = await customAxios.delete(`${path}/${id}`);
       dispatch(deleteAppointment(response.data));
     } catch (error) {
       console.log(error);
@@ -79,9 +82,14 @@ const CalendarLanding = () => {
     setSelectedTask(null);
   };
 
+  const handleDeleteModal = (id) => {
+    setDeleteModal(true);
+    setSelectedDeleteTask(id);
+  };
   const handleDeleteButton = (id) => {
     deleteAppointmentTask("/appointment", id);
     getAppointmentList("/appointment");
+    setDeleteModal(false);
   };
 
   const updateStatusAppointment = async (path, id, nextStatus) => {
@@ -133,7 +141,7 @@ const CalendarLanding = () => {
             status={item.status}
             date={item.date}
             onClick={(e) => handleUpdateButton(e, item.id)}
-            handleDeleteButton={() => handleDeleteButton(item.id)}
+            handleDeleteModal={() => handleDeleteModal(item.id)}
             toggleStatus={() => toggleStatus(item.id, item.status)}
           />
         ))}
@@ -155,6 +163,11 @@ const CalendarLanding = () => {
             data={modalType === MODALTYPE.UPDATE ? selectedTask : {}}
           />
         )}
+      {deleteModal && (
+        <DeleteComponent
+          onClick={() => handleDeleteButton(selectedDeleteTask)}
+        />
+      )}
     </div>
   );
 };

@@ -8,7 +8,7 @@ const ListComponent = (props) => {
     status,
     key,
     onClick,
-    handleDeleteButton,
+    handleDeleteModal,
     toggleStatus,
   } = props;
   const [isHovered, setIsHovered] = useState(false);
@@ -18,6 +18,9 @@ const ListComponent = (props) => {
 
   const handleMouseLeave = () => {
     setIsHovered(false);
+  };
+  const handleDelete = () => {
+    handleDeleteModal(id);
   };
   const colorStatus =
     status.toUpperCase() === "PENDING" ? "bg-orange-400" : "bg-green-300";
@@ -54,7 +57,7 @@ const ListComponent = (props) => {
           type="button"
           name="deleteButton"
           className="flex justify-center rounded-md bg-red-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-          onClick={handleDeleteButton}
+          onClick={handleDelete}
         >
           DELETE
         </button>
