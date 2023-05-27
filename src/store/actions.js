@@ -37,7 +37,6 @@ export const deleteAppointment = (id) => {
 }
 
 export const editAppointment = (payload) => {
-    console.log(payload)
     return {
         type: EDIT_APPOINTMENT,
         payload: payload

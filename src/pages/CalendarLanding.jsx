@@ -23,16 +23,16 @@ const CalendarLanding = () => {
   const appointmentList = useSelector((state) => state.taskCards.data);
 
   const getAppointmentList = async (path) => {
-    const response = await customAxios.get(path);
     try {
+      const response = await customAxios.get(path);
       dispatch(getAppointment(response.data));
     } catch (error) {
       console.log(error);
     }
   };
   const fetchAppointmentTask = async (path, id) => {
-    const response = await customAxios.get(`${path}/${id}`);
     try {
+      const response = await customAxios.get(`${path}/${id}`);
       setSelectedTask(response.data);
     } catch (error) {
       console.log(error);
@@ -53,7 +53,6 @@ const CalendarLanding = () => {
   }, []);
 
   useEffect(() => {
-    console.log(appointmentList);
     setTaskList(appointmentList);
   }, [appointmentList]);
 
@@ -86,16 +85,16 @@ const CalendarLanding = () => {
   };
 
   const updateStatusAppointment = async (path, id, nextStatus) => {
-    const response = await customAxios.patch(
-      `${path}/${id}`,
-      {
-        status: nextStatus,
-      },
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
     try {
+      const response = await customAxios.patch(
+        `${path}/${id}`,
+        {
+          status: nextStatus,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
       dispatch(editStatusAppointment(response.data));
     } catch (error) {
       console.log(error);
@@ -107,7 +106,6 @@ const CalendarLanding = () => {
       currentStatus.toUpperCase() === STATUSTYPE.PENDING
         ? STATUSTYPE.COMPLETED
         : STATUSTYPE.PENDING;
-    console.log(currentStatus);
     updateStatusAppointment("/appointment", id, nextStatus);
     getAppointmentList("/appointment");
   };

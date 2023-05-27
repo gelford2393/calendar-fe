@@ -22,18 +22,18 @@ const AddUpdateComponent = (props) => {
     setAppointmentName(e.target.value);
   };
   const addAppointment = async () => {
-    const response = await customAxios.post(
-      "/appointment",
-      {
-        name: appointmentName,
-        date: appointmentDate,
-        status: appointmentStatus,
-      },
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
     try {
+      const response = await customAxios.post(
+        "/appointment",
+        {
+          name: appointmentName,
+          date: appointmentDate,
+          status: appointmentStatus,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
       dispatch(setAppointment(response.data));
       handleCloseModal();
     } catch (error) {
@@ -42,18 +42,18 @@ const AddUpdateComponent = (props) => {
   };
 
   const updateAppointment = async () => {
-    const response = await customAxios.put(
-      `appointment/${data.id}`,
-      {
-        name: appointmentName,
-        date: appointmentDate,
-        status: appointmentStatus,
-      },
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
     try {
+      const response = await customAxios.put(
+        `appointment/${data.id}`,
+        {
+          name: appointmentName,
+          date: appointmentDate,
+          status: appointmentStatus,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
       dispatch(editAppointment(response.data));
       handleCloseModal();
     } catch (error) {
@@ -69,7 +69,6 @@ const AddUpdateComponent = (props) => {
               {type === MODALTYPE.UPDATE
                 ? data.name.toUpperCase()
                 : "ADD APPOINTMENT"}
-              
             </h2>
             <InputComponent
               id={"appoinment"}
