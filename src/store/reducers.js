@@ -73,7 +73,7 @@ const getAppointmentReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: {
-                    ...state.user,
+                    error: {},
                     hasAccess: true,
                     token: action.payload
                 }
@@ -85,6 +85,7 @@ const getAppointmentReducer = (state = initialState, action) => {
                     ...state.user,
                     hasAccess: false,
                     error: action.payload,
+                    token: {}
                 }
             }
         default:

@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import customAxios from "../config/customAxios";
 import { getLoginError, setActiveSession } from "../store/actions";
 import ErrorComponent from "../components/ErrorComponent";
+import { useNavigate } from "react-router-dom";
 
 import { isValidObj } from "../config/util";
 
 const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,6 +36,7 @@ const Login = () => {
         }
       );
       dispatch(setActiveSession(response.data));
+      navigate("/appointment", { replace: true });
     } catch (error) {
       dispatch(getLoginError(error.response));
       setErrorPrompt(true);
