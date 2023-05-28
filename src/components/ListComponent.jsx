@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const ListComponent = (props) => {
   const {
@@ -11,7 +11,6 @@ const ListComponent = (props) => {
     handleDeleteModal,
     toggleStatus,
   } = props;
-  const [isHovered, setIsHovered] = useState(false);
 
   const handleDelete = () => {
     handleDeleteModal(id);
