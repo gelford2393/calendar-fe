@@ -12,13 +12,7 @@ const ListComponent = (props) => {
     toggleStatus,
   } = props;
   const [isHovered, setIsHovered] = useState(false);
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
   const handleDelete = () => {
     handleDeleteModal(id);
   };
@@ -27,12 +21,8 @@ const ListComponent = (props) => {
   return (
     <li
       key={key}
-      className={`flex justify-between gap-x-6 py-5 px-5 focus-visible:outline hover:cursor-pointer ${
-        isHovered ? "bg-pink-100" : ""
-      }`}
+      className={`flex justify-between gap-x-6 py-5 px-5 focus-visible:outline hover:cursor-pointer max-w-sm mx-auto rounded overflow-hidden shadow-lg hover:shadow-xl transition duration-300}`}
       onClick={(e) => onClick(e, id)}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
       <div className="flex gap-x-4">
         <div className="min-w-0 flex-auto">
