@@ -128,7 +128,7 @@ const CalendarLanding = () => {
 
   return (
     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-      <ul role="list" className="divide-y divide-gray-100 rounded-sm">
+      <ul className="divide-y divide-gray-100 rounded-sm">
         <SearchComponent
           onHandleChange={handleSearchChange}
           value={searchTask}
